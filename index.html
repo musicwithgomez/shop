@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Family Wall</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef1fb;--card:#fff;--tx:#14161f;--mu:#7b8194;--ln:#e3e7f3;--ac:#3b6fe0}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141b;--card:#1d2029;--tx:#f0f1f6;--mu:#98a0b5;--ln:#2b2f3a;--ac:#6b93f2}}
+:root[data-theme="dark"]{--bg:#12141b;--card:#1d2029;--tx:#f0f1f6;--mu:#98a0b5;--ln:#2b2f3a;--ac:#6b93f2}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:640px;margin:0 auto}main{padding:12px 14px 120px}
+input,select,textarea,button{font:inherit;color:var(--tx)}
+input,textarea,select{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:11px 12px;min-width:0;width:100%}
+textarea{min-height:90px}button{cursor:pointer}
+.hd{background:var(--h);color:#fff;padding:14px 16px 16px;position:relative;overflow:hidden;min-height:128px;border-radius:0 0 22px 22px}
+.hd.lt{background:var(--card);color:var(--tx);min-height:0}.hd.lt .big{display:none}.hd.lt .ib{background:var(--bg)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:6px;position:relative;z-index:1}.top div{display:flex;gap:6px}
+.ib{width:38px;height:38px;border-radius:50%;background:#fff;border:0;font-size:17px;flex:none;color:#222}
+.hd h1{margin:16px 0 4px;font-size:27px;position:relative;z-index:1}.big{position:absolute;right:14px;bottom:2px;font-size:62px}
+.inner{position:relative;z-index:1}
+.card{background:var(--card);border-radius:16px;padding:14px;margin:10px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.card h3{margin:0 0 4px}.mu{color:var(--mu);font-size:13px}.f{display:grid;gap:8px}
+.btn{background:var(--h,var(--ac));color:#fff;border:0;border-radius:12px;padding:11px 14px;font-weight:600}
+.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--ln)}.btn.r{background:#d9534f}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.chip{border:0;border-radius:20px;padding:6px 12px;color:#fff;font-size:13px;font-weight:600;background:var(--c)}
+.chip.o{background:var(--card);color:var(--tx);border:1px solid var(--ln)}.chip.o.on{background:var(--h);color:#fff;border-color:var(--h)}
+.av{width:30px;height:30px;border-radius:50%;background:var(--c);display:inline-grid;place-items:center;font-size:16px;flex:none}
+.fab{position:fixed;right:max(18px,calc(50% - 300px));bottom:calc(22px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;background:var(--h);color:#fff;font-size:32px;border:0;box-shadow:0 6px 16px rgba(0,0,0,.3);z-index:5}
+.homeh{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 0}.homeh h1{margin:0;font-size:30px}
+.today{background:#4aa3e0;color:#fff;border-radius:20px;padding:16px;margin-bottom:12px}.today h2{margin:0 0 8px}
+.te{border-left:4px solid var(--c);padding:2px 10px;margin:8px 0}.te div{font-size:13px;opacity:.9}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:28px 14px 14px;user-select:none;-webkit-user-select:none;text-align:left;position:relative;min-height:88px;padding-right:56px}
+.tile .th{position:absolute;left:8px;top:6px;touch-action:none;cursor:grab;color:var(--mu);opacity:.55;font-size:15px;padding:4px 8px 4px 4px;line-height:1;letter-spacing:-2px}.tile.dg{opacity:.65;outline:2px dashed var(--ac);z-index:3}.tile b{display:block}.tile span{font-size:13px;color:var(--mu)}.tile.off{opacity:.5}
+.tile i{position:absolute;right:10px;bottom:10px;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-style:normal;font-size:20px;background:color-mix(in srgb,var(--c) 22%,transparent)}
+.strip{display:flex;justify-content:space-between;margin-top:8px}.sd{background:none;border:0;display:grid;gap:2px;justify-items:center;padding:4px 8px;border-radius:10px;color:inherit}.sd small{opacity:.6}.sd.td{background:var(--bg)}.sd.on{background:var(--ac);color:#fff}
+.cols{display:flex;gap:10px;overflow-x:auto;padding:6px 0}.col{min-width:46%;flex:none}.col .ph{display:flex;align-items:center;gap:6px;font-weight:700}
+.add{width:100%;background:color-mix(in srgb,var(--ac) 15%,transparent);border:0;border-radius:10px;padding:6px;color:var(--ac);font-size:20px;margin:6px 0}
+.ec{background:var(--c);color:#fff;border-radius:10px;padding:8px 10px;margin:6px 0;font-weight:600}.ec small{display:block;font-weight:400;opacity:.9}
+.ar{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:6px 12px;margin:10px 0}.ar input{border:0;background:none}
+.cat{display:flex;align-items:center;gap:8px;margin:16px 4px 4px;font-weight:700;background:none;border:0;width:calc(100% - 8px);text-align:left}
+.cat em{margin-left:auto;font-style:normal}
+.it{display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid var(--ln);background:var(--card)}
+.it .t{flex:1;min-width:0;background:none;border:0;text-align:left;padding:0}.it .t small{display:block;color:var(--mu)}
+.it.dn .t b{text-decoration:line-through;opacity:.45}
+.ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--c);background:none;flex:none;color:#fff;display:grid;place-items:center;padding:0;font-size:14px}.dn .ck{background:var(--c)}
+.bud{background:rgba(255,255,255,.16);border-radius:12px;padding:12px;margin-top:8px}.bud big{font-size:28px;font-weight:700;display:block}
+.bar{height:6px;background:rgba(255,255,255,.3);border-radius:9px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:#fff}
+.card .bar{background:var(--ln)}.card .bar i{background:var(--ac)}
+.ex{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px;margin:6px 0;width:100%;text-align:left}
+.ex .ic{width:38px;height:38px;border-radius:10px;background:var(--bg);display:grid;place-items:center;font-size:20px}.ex .t{flex:1}.ex small{display:block;color:var(--mu)}
+.gl{margin:14px 2px 2px;color:var(--mu);font-size:14px}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:10px 4px;font-weight:600}.dh .x{background:none;border:0;color:var(--ac);font-size:22px}
+.ml{background:var(--card);border-radius:12px;border-left:5px solid var(--c);padding:8px 12px;margin:6px 0;display:flex;gap:8px;align-items:center;width:100%;text-align:left;border-top:0;border-right:0;border-bottom:0}.ml div{flex:1}.ml small{color:var(--c);font-weight:600;display:block}
+.sh{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end}
+.sh>div{background:var(--card);width:100%;max-width:640px;margin:0 auto;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto}
+.sh h3{margin:0 0 8px}.lb{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#23211d;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:30}
+.empty{text-align:center;color:var(--mu);padding:30px 10px}pre{white-space:pre-wrap;font:inherit;margin:8px 0}a{color:var(--ac)}
+.rm{background:none;border:0;color:var(--mu);opacity:.4;font-size:15px;padding:6px 4px;flex:none}.rm:hover{opacity:.9}
+.cr{display:flex;align-items:center;gap:8px;margin:6px 0}
+#map{height:52vh;min-height:280px;border-radius:16px;position:relative;z-index:0;isolation:isolate;margin:10px 0;background:var(--ln);overflow:hidden}
+.pin{width:36px;height:36px;border-radius:50%;background:var(--c);border:3px solid #fff;display:grid;place-items:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.35)}.pin.st{opacity:.55}
+:root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(.9)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(.9)}}
+.lm{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ln)}.lm:last-child{border:0}.lm .t{flex:1}.lm small{display:block;color:var(--mu)}
+.dy{margin:18px 2px 6px;font-weight:700}.dy.td{color:var(--ac)}
+.mh{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;color:var(--mu);font-size:12px;margin-top:6px}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:4px 0 6px}
+.mc{background:var(--card);border:1px solid var(--ln);border-radius:10px;min-height:56px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:14px}
+.mc.o{opacity:.4}.mc.on{outline:2px solid var(--ac)}.mc.td b{background:var(--ac);color:#fff;border-radius:50%;width:24px;height:24px;display:grid;place-items:center}
+.dots{display:flex;gap:2px;flex-wrap:wrap;justify-content:center}.dots i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.mic{position:fixed;right:max(25px,calc(50% - 293px));bottom:calc(92px + env(safe-area-inset-bottom,0px));width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--ln);font-size:20px;opacity:.85;box-shadow:0 3px 10px rgba(0,0,0,.2);z-index:5}
+.mic.on{background:#d9534f;opacity:1;animation:pl 1s infinite}@keyframes pl{50%{transform:scale(1.12)}}
+#micbar{position:fixed;left:50%;bottom:150px;transform:translateX(-50%);max-width:86%;background:#23211d;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:30}
+</style></head><body><div id="app"></div><div id="shw"></div><input type="file" id="csvf" accept=".csv,.txt,text/csv" hidden>
+<script>
+window.fbRef=new Promise(r=>window._fbres=r);
+async function getRef(){return Promise.race([window.fbRef,new Promise(r=>setTimeout(()=>r(null),8000))])}
+const CATS={brood:['Brood & Gebak','#c98a3d','🥖'],groente:['Groente','#3f9d4f','🥦'],fruit:['Fruit','#e4572e','🍎'],zuivel:['Zuivel & Eieren','#4c8fd6','🥛'],vlees:['Vlees & Vis','#c2415d','🥩'],kaas:['Kaas & Beleg','#e0b01f','🧀'],houdbaar:['Houdbaar','#8b6b4a','🥫'],drank:['Dranken','#2aa5a5','🥤'],vries:['Diepvries','#6c7ae0','❄️'],snoep:['Snoep & Snacks','#d96bb0','🍫'],huis:['Huishouden','#7d8590','🧴'],overig:['Overig','#a0a0a0','📦']};
+const KW={brood:'brood,bol,croissant,wrap,beschuit,pistolet,stokbrood,taart',groente:'sla,tomaat,komkommer,ui,knoflook,wortel,paprika,courgette,broccoli,spinazie,aardappel,champignon,prei,bloemkool,avocado',fruit:'appel,banaan,peer,citroen,sinaasappel,druif,aardbei,mango,kiwi,framboos,bosbes,meloen',zuivel:'melk,yoghurt,boter,ei,eieren,room,kwark,skyr,vla,havermelk',kaas:'kaas,ham,salami,hummus,pesto,pindakaas,jam,hagelslag',vlees:'kip,gehakt,vis,zalm,worst,spek,biefstuk,tonijn,garnaal,schnitzel',houdbaar:'pasta,rijst,meel,suiker,olie,saus,soep,bonen,linzen,muesli,cornflakes,koffie,thee,zout,peper',drank:'water,cola,bier,wijn,sap,frisdrank,limonade',vries:'ijs,pizza,diepvries,friet,doperwten',snoep:'chips,chocolade,koek,snoep,drop,noten',huis:'wc,afwas,zeep,shampoo,tandpasta,keukenrol,vuilzak,wasmiddel,spons,luiers'};
+const BC={'Boodschappen':'🛒','Vaste lasten':'🏠','Vervoer':'🚗','Kinderen':'🧒','Vrije tijd':'🎉','Kleding':'👗','Salaris':'💼','Overig':'📦'};
+const MT={b:['Ontbijt','#f0a07a'],l:['Lunch','#e8b92a'],d:['Diner','#2fa96b']};
+const COL={home:'#3b6fe0',cal:'#3b6fe0',lists:'#6e78b8',budget:'#3b6fe0',meals:'#4a6fb5',tasks:'#4a9d6e',msgs:'#2aa5a5',recipes:'#e0883e',contacts:'#d96bb0',settings:'#6b7280',loc:'#e0614f'};
+const MC=['#e4572e','#4c8fd6','#3f9d4f','#d96bb0','#e0b01f','#6c7ae0','#2aa5a5'];
+const guess=n=>{n=n.toLowerCase();for(const k in KW)if(KW[k].split(',').some(w=>n.includes(w)))return k;return'overig'};
+const uid=()=>Math.random().toString(36).slice(2,9),$=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const addDays=(d,n)=>{const x=new Date(d);x.setHours(12,0,0,0);x.setDate(x.getDate()+n);return x};
+const P=s=>new Date(s+'T12:00'),dl=(s,o)=>cap(P(s).toLocaleDateString('nl-NL',o));
+const eur=n=>'€ '+Math.abs(n).toLocaleString('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2});
+let S={fam:'Ons gezin',items:[],recipes:[],meals:[],orders:[{id:'o1',name:'Standaard route',cats:Object.keys(CATS)}],active:'o1',theme:'auto',members:[{id:'m1',name:'Ik',color:'#e4572e',emoji:'🙂'},{id:'m2',name:'Partner',color:'#4c8fd6',emoji:'😀'}],events:[],tasks:[],msgs:[],contacts:[],exp:[],limits:{},budget:0,rules:{}};
+let me='';try{me=localStorage.getItem('me')||''}catch(e){}
+let lt='lijst',view='home',cd=ymd(new Date()),bm=0,bg='date',mw=0,tf='',col={},SH=null,ref=null,timer=null,dirty=false;
+const mem=id=>S.members.find(m=>m.id===id)||{name:'?',color:'#999',emoji:'👤'};
+const av=id=>`<span class="av" style="--c:${mem(id).color}" title="${esc(mem(id).name)}">${mem(id).emoji}</span>`;
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.append(e);setTimeout(()=>e.remove(),1900)}
+function save(){dirty=true;clearTimeout(timer);timer=setTimeout(async()=>{try{localStorage.setItem('bd',JSON.stringify(S))}catch(e){}if(ref){try{await ref.set(JSON.parse(JSON.stringify({...S,loc:undefined})))}catch(e){}}dirty=false},500)}
+function theme(){document.documentElement.dataset.theme=S.theme==='auto'?'':S.theme}
+function norm(){S.loc=S.loc||{};['items','recipes','meals','events','tasks','msgs','contacts','exp'].forEach(k=>S[k]=S[k]||[]);S.limits=S.limits||{};S.tiles=S.tiles||[];S.rules=S.rules||{};S.budget=+S.budget||0;S.items=S.items.filter(i=>!i.h);S.recipes.forEach(r=>{if(!r.ings)r.ings=parseIng(r.ing||'')});
+ if(S.plan){Object.entries(S.plan).forEach(([k,p])=>{if(p?.txt)S.meals.push({id:uid(),date:k,type:'d',txt:p.txt,rid:p.rid})});delete S.plan}
+ if(!S.members?.length)S.members=[{id:'m1',name:'Ik',color:'#e4572e',emoji:'🙂'}];if(!S.members.find(m=>m.id===me))me=S.members[0].id;
+ if(!S.orders?.length)S.orders=[{id:'o1',name:'Standaard route',cats:Object.keys(CATS)}];S.orders.forEach(o=>Object.keys(CATS).forEach(k=>{if(!o.cats.includes(k))o.cats.push(k)}));if(!S.orders.find(o=>o.id===S.active))S.active=S.orders[0].id}
+const order=()=>S.orders.find(o=>o.id===S.active);
+const evOn=d=>[...S.events,...G].filter(e=>e.date===d).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+const evCol=e=>e.who?.length?mem(e.who[0]).color:(e.col||'#8a93a8'),tr=e=>e.time?e.time+(e.end?' - '+e.end:''):'Hele dag';
+const mBal=p=>S.exp.filter(x=>x.date.startsWith(p)).reduce((a,x)=>a+(x.inc?x.amt:-x.amt),0);
+const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isNaN(n)?0:n},fmtQ=n=>String(Math.round(n*100)/100);
+function parseIng(t){return String(t||'').split('\n').map(s=>s.replace(/^[\s\-•*]+/,'').trim()).filter(Boolean).map(s=>{const m=s.match(/^(\d+\/\d+|\d+(?:[.,]\d+)?)\s*(?:x\s*)?(?:(?:gram|gr|g|kg|ml|cl|dl|l|el|tl|stuks?|blik(?:ken)?|teentjes?|bosjes?)\b\.?\s*)?(.+)$/i);if(!m)return{name:s,qty:''};let q=m[1];q=q.includes('/')?q.split('/')[0]/q.split('/')[1]:parseFloat(q.replace(',','.'));return{name:m[2].trim(),qty:fmtQ(q)}})}
+const wkKey=s=>{const d=typeof s==='string'?P(s):s;return ymd(addDays(d,-((d.getDay()+6)%7)))},wasAdded=(r,k)=>(r.aw||[]).includes(k),mark=(r,k)=>{if(!wasAdded(r,k))r.aw=[...(r.aw||[]),k].slice(-12)};
+const CONF='Ben je zeker dat je dit recept nog eens wilt toevoegen?\n\nDe ingrediënten zijn deze week al op de lijst gezet.';
+function addRecipe(r){let c=0;(r.ings||[]).forEach(g=>{const nm=g.name.trim().toLowerCase();if(!nm)return;const q=num(g.qty),same=S.items.filter(i=>i.name.trim().toLowerCase()===nm),open=same.find(i=>!i.done),dn=same.find(i=>i.done);
+ if(open){if(q)open.qty=fmtQ(num(open.qty)+q)}else if(dn){dn.done=false;dn.qty=q?fmtQ(q):''}else S.items.unshift({id:uid(),name:g.name.trim(),qty:q?fmtQ(q):'',cat:guess(g.name),done:false});c++});return c}
+// ---------- bottom sheet ----------
+function sheet(title,fields,vals,ok,del,extra){SH={title,fields,v:{...vals},ok,del,extra};drawSh()}
+function syncSh(){SH.fields.forEach(f=>{if(f.t==='ings'){SH.v[f.id]=(SH.v[f.id]||[]).map((x,i)=>({name:document.getElementById('ign_'+i)?.value??x.name,qty:document.getElementById('igq_'+i)?.value??x.qty}));return}const e=document.getElementById('f_'+f.id);if(e)SH.v[f.id]=e.value})}
+function drawSh(){if(!SH){$('#shw').innerHTML='';return}
+ const fl=f=>{const v=SH.v[f.id];const l=`<label class="lb">${f.l}</label>`;
+  if(f.t==='ings')return l+(v||[]).map((x,i)=>`<div class="cr"><input id="ign_${i}" value="${esc(x.name)}" placeholder="Ingrediënt" style="flex:1"><input id="igq_${i}" value="${esc(x.qty)}" inputmode="decimal" placeholder="Aantal" style="width:84px"><button class="ib" style="background:var(--bg)" data-a="igdel" data-id="${i}">✕</button></div>`).join('')+`<div class="row"><button class="btn g" data-a="igadd">➕ Ingrediënt</button></div>`;
+  if(f.t==='area')return l+`<textarea id="f_${f.id}" placeholder="${f.p||''}">${esc(v)}</textarea>`;
+  if(f.t==='select')return l+`<select id="f_${f.id}">${f.o.map(([k,n])=>`<option value="${esc(k)}" ${k===(v??'')?'selected':''}>${esc(n)}</option>`).join('')}</select>`;
+  if(f.t==='chips')return l+`<div class="row">${S.members.map(m=>`<button class="chip" style="--c:${m.color};opacity:${(v||[]).includes(m.id)?1:.35}" data-a="tg" data-f="${f.id}" data-id="${m.id}">${m.emoji} ${esc(m.name)}</button>`).join('')}</div>`;
+  if(f.t==='pick')return l+`<div class="row">${f.o.map(([k,n,c])=>`<button class="chip" style="--c:${c||'#888'};opacity:${v===k?1:.35}" data-a="pk" data-f="${f.id}" data-id="${k}">${esc(n)}</button>`).join('')}</div>`;
+  return l+`<input id="f_${f.id}" type="${f.t||'text'}" ${f.t==='number'?'step="0.01" inputmode="decimal"':''} value="${esc(v)}" placeholder="${f.p||''}">`};
+ $('#shw').innerHTML=`<div class="sh" data-a="closesh"><div><h3>${esc(SH.title)}</h3>${SH.fields.map(fl).join('')}<div class="row" style="margin-top:14px"><button class="btn" data-a="oksh" style="flex:1">Opslaan</button>${SH.extra?`<button class="btn g" data-a="exsh">${SH.extra.l}</button>`:''}${SH.del?'<button class="btn r" data-a="delsh">🗑️</button>':''}</div></div></div>`}
+const upsert=(arr,e,o)=>e.id?Object.assign(arr.find(x=>x.id===e.id),o):arr.push({id:uid(),...o});
+// ---------- forms ----------
+const fEvent=(e={},m)=>sheet(e.id?'Afspraak':'Nieuwe afspraak',[{id:'title',l:'Titel'},{id:'date',l:'Datum',t:'date'},{id:'time',l:'Van',t:'time'},{id:'end',l:'Tot',t:'time'},{id:'who',l:'Wie',t:'chips'},{id:'rem',l:'Herinnering',t:'select',o:[['','Geen'],['1','Dag ervoor']]}],{title:e.title,date:e.date||cd,time:e.time,end:e.end,who:e.who||(m?[m]:[]),rem:e.rem?'1':''},v=>{if(!v.title.trim()||!v.date)return toast('Vul titel en datum in'),false;upsert(S.events,e,{title:v.title.trim(),date:v.date,time:v.time,end:v.end,who:v.who,rem:!!v.rem})},e.id&&(()=>{S.events=S.events.filter(x=>x.id!==e.id)}));
+const fItem=(e={})=>sheet(e.id?'Item':'Nieuw item',[{id:'name',l:'Naam'},{id:'qty',l:'Aantal (alleen een getal)',t:'text'},{id:'cat',l:'Categorie',t:'pick',o:Object.entries(CATS).map(([k,c])=>[k,c[2]+' '+c[0],c[1]])}],{name:e.name,qty:e.qty,cat:e.cat||'overig'},v=>{if(!v.name.trim())return false;upsert(S.items,e,{name:v.name.trim(),qty:v.qty,cat:v.cat,done:!!e.done})},e.id&&(()=>{S.items=S.items.filter(x=>x.id!==e.id)}));
+const fTask=(e={})=>sheet(e.id?'Taak':'Nieuwe taak',[{id:'title',l:'Taak'},{id:'list',l:'Lijst (bijv. Klusjes, Inpakken)'},{id:'due',l:'Deadline (optioneel)',t:'date'},{id:'who',l:'Toewijzen aan',t:'chips'}],{title:e.title,list:e.list||'Algemeen',due:e.due||'',who:e.who||[]},v=>{if(!v.title.trim())return false;upsert(S.tasks,e,{title:v.title.trim(),list:v.list.trim()||'Algemeen',due:v.due||'',who:v.who,done:!!e.done})},e.id&&(()=>{S.tasks=S.tasks.filter(x=>x.id!==e.id)}));
+const fExp=(e={})=>sheet(e.id?'Transactie':'Nieuwe transactie',[{id:'inc',l:'Soort',t:'pick',o:[['0','Uitgave','#d9534f'],['1','Inkomen','#3f9d4f']]},{id:'amt',l:'Bedrag',t:'number'},{id:'note',l:'Omschrijving'},{id:'cat',l:'Categorie',t:'pick',o:Object.entries(BC).map(([k,i])=>[k,i+' '+k,'#4c8fd6'])},{id:'date',l:'Datum',t:'date'}],{inc:e.inc?'1':'0',amt:e.amt,note:e.note,cat:e.cat||'Boodschappen',date:e.date||ymd(new Date())},v=>{const n=parseFloat(String(v.amt).replace(',','.'));if(!(n>0))return toast('Vul een bedrag in'),false;const oc=e.cat;upsert(S.exp,e,{amt:n,inc:v.inc==='1',note:v.note,cat:v.cat,date:v.date,who:e.who||me});if(e.id&&e.key&&oc!==v.cat){S.rules[e.key]=v.cat;S.exp.forEach(x=>{if(x.imp&&x.key===e.key)x.cat=v.cat});toast('Onthouden voor gelijke transacties')}},e.id&&(()=>{S.exp=S.exp.filter(x=>x.id!==e.id)}));
+const fMeal=(e={},d)=>sheet(e.id?'Maaltijd':'Maaltijd plannen',[{id:'type',l:'Moment',t:'pick',o:Object.entries(MT).map(([k,m])=>[k,m[0],m[1]])},{id:'rid',l:'Kies een recept',t:'select',o:[['','— zelf typen —'],...S.recipes.map(r=>[r.id,r.title])]},{id:'txt',l:'Of typ zelf',p:'bijv. Pasta pesto'},{id:'date',l:'Datum',t:'date'}],{type:e.type||'d',rid:e.rid||'',txt:e.txt,date:e.date||d||ymd(new Date())},v=>{const r=S.recipes.find(x=>x.id===v.rid),t=v.txt.trim()||r?.title;if(!t)return toast('Kies of typ een gerecht'),false;upsert(S.meals,e,{type:v.type,txt:t,rid:r?.id,date:v.date})},e.id&&(()=>{S.meals=S.meals.filter(x=>x.id!==e.id)}));
+const fCt=(e={})=>sheet(e.id?'Contact':'Nieuw contact',[{id:'name',l:'Naam'},{id:'role',l:'Rol (oppas, huisarts…)'},{id:'phone',l:'Telefoon',t:'tel'}],e,v=>{if(!v.name.trim())return false;upsert(S.contacts,e,{name:v.name.trim(),role:v.role,phone:v.phone})},e.id&&(()=>{S.contacts=S.contacts.filter(x=>x.id!==e.id)}));
+const fRec=(e={})=>sheet(e.id?'Recept':'Nieuw recept',[{id:'title',l:'Naam'},{id:'url',l:'Link naar website'},{id:'ings',l:'Ingrediënten (naam + aantal)',t:'ings'},{id:'bulk',l:'Of plak een lijst (één per regel, bijv. “250 gehakt”)',t:'area'},{id:'notes',l:'Bereiding / of plak hier een hele receptpagina',t:'area'}],{title:e.title,url:e.url,ings:(e.ings||[]).map(x=>({...x})),bulk:'',notes:e.notes},v=>{upsert(S.recipes,e,{title:v.title.trim()||'Zonder naam',url:v.url.trim(),ings:[...v.ings,...parseIng(v.bulk)].filter(x=>x.name.trim()).map(x=>({name:x.name.trim(),qty:x.qty===''?'':fmtQ(num(x.qty))})),notes:v.notes})},e.id&&(()=>{S.recipes=S.recipes.filter(x=>x.id!==e.id)}),{l:'✨ Vul slim in',fn:async()=>{const txt=SH.v.notes+'\n'+SH.v.bulk;if(txt.trim().length<20)return toast('Plak eerst de recepttekst in “Bereiding”');
+ try{const s=window.claude?await claude.use('sample'):null;if(!s)return toast('Slim invullen werkt alleen binnen Claude');toast('Bezig…');const j=await s.json('Haal uit deze receptpagina JSON {"title":"...","ing":"één ingrediënt per regel, beginnend met het aantal als getal (alleen een getal, geen eenheden), dan de naam, Nederlands","notes":"korte bereiding, Nederlands"}. Alleen JSON.\n\n'+txt.slice(0,12000));Object.assign(SH.v,{title:j.title||SH.v.title,ings:[...SH.v.ings,...parseIng(j.ing)],bulk:'',notes:j.notes});drawSh()}catch(x){toast('Lukte niet, probeer opnieuw')}}});
+// ---------- views ----------
+const hdr=(t,big,right='',inner='',cls='')=>`<div class="hd ${cls}"><div class="top"><button class="ib" data-a="go" data-id="home">🏠</button><div>${right}</div></div><h1>${t}</h1><div class="inner">${inner}</div><div class="big">${big}</div></div>`;
+const fab=a=>`<button class="fab" data-a="${a}">+</button>`;
+const chips=(a,cur,list)=>`<div class="row">${list.map(([k,n])=>`<button class="chip o ${cur===k?'on':''}" data-a="${a}" data-id="${k}">${n}</button>`).join('')}</div>`;
+const mfilt=(a,cur)=>chips(a,cur,[['','Iedereen'],...S.members.map(m=>[m.id,m.emoji+' '+esc(m.name)])]);
+function home(){const t=ymd(new Date()),n=new Date(),mo=addDays(n,-((n.getDay()+6)%7)),wk=[...S.events,...G].filter(e=>e.date>=ymd(mo)&&e.date<=ymd(addDays(mo,6))).length,dn=S.meals.find(x=>x.date===t&&x.type==='d'),ev=evOn(t),rem=S.events.filter(e=>e.date===ymd(addDays(n,1))&&e.rem);
+ const T=[['cal','Agenda',wk+' afspraken deze week','🗓️'],['lists','Boodschappen',S.items.filter(i=>!i.done).length+' items · '+S.recipes.length+' recepten','🛒'],['tasks','Taken',S.tasks.filter(x=>!x.done).length+' open taken','✅'],['budget','Budget','Saldo: '+(mBal(t.slice(0,7))<0?'-':'')+eur(mBal(t.slice(0,7))),'🐷'],['meals','Maaltijden',dn?'Diner: '+esc(dn.txt):'Nog niets gepland','🍽️'],['msgs','Berichten',S.msgs.length+' berichten','💬'],['contacts','Contacten',S.contacts.length+' contacten','📇'],['doc','Documenten','Binnenkort','📁'],['loc','Locatie',locSub(),'📍']];
+ return`<div class="w"><div class="homeh"><h1 data-a="go" data-id="settings">${esc(S.fam)} ▾</h1><button class="ib" style="background:var(--card)" data-a="go" data-id="settings">⚙️</button></div><main>
+ <div class="today"><h2>${dl(t,{weekday:'short',day:'numeric',month:'short'})}</h2>${ev.slice(0,3).map(e=>`<div class="te" style="--c:${evCol(e)}"><b>${esc(e.title)}</b><div>${tr(e)}</div></div>`).join('')||'<div>Geen afspraken vandaag 🎈</div>'}${rem.map(e=>`<div class="te" style="--c:#fff"><b>⏰ Morgen: ${esc(e.title)}</b></div>`).join('')}</div>
+ <div class="tg">${T.sort((x,y)=>{const f=k=>{const n=S.tiles.indexOf(k[0]);return n<0?99:n};return f(x)-f(y)}).map(([v,a,b,i])=>`<div class="tile ${COL[v]?'':'off'}" role="button" data-tid="${v}" style="--c:${COL[v]||'#888'}" ${COL[v]?`data-a="go" data-id="${v}"`:''}><span class="th" data-a="noop" title="Sleep om te verplaatsen">⋮⋮</span><b>${a}</b><span>${b}</span><i>${i}</i></div>`).join('')}</div></main></div>`}
+function calDay(){const d=P(cd),mo=addDays(d,-((d.getDay()+6)%7)),t=ymd(new Date());
+ return`<div class="w">${hdr(dl(cd,{day:'numeric',month:'long'}),'🗓️',`<button class="ib" data-a="cdn" data-id="-7">◀</button><button class="ib" data-a="cdn" data-id="0">•</button><button class="ib" data-a="cdn" data-id="7">▶</button>`,`<div class="strip">${[0,1,2,3,4,5,6].map(i=>{const k=ymd(addDays(mo,i));return`<button class="sd ${k===cd?'on':k===t?'td':''}" data-a="cd2" data-id="${k}"><small>${'MDWDVZZ'[i]}</small><b>${addDays(mo,i).getDate()}</b></button>`}).join('')}</div>`,'lt')}
+ <main>${cvChips()}<div class="cols">${S.members.map(m=>`<div class="col"><div class="ph">${av(m.id)} ${esc(m.name)}</div><button class="add" data-a="addev" data-id="${m.id}">+</button>${evOn(cd).filter(e=>e.who?.includes(m.id)).map(e=>`<button class="ec" style="--c:${m.color};width:100%;text-align:left;border:0" data-a="edev" data-id="${e.id}">${esc(e.title)}${e.rem?' ⏰':''}${e.g?' 📅':''}<small>${tr(e)}</small></button>`).join('')}</div>`).join('')}</div>
+ ${evOn(cd).filter(e=>!e.who?.length).map(e=>`<button class="ec" style="--c:${evCol(e)};width:100%;text-align:left;border:0" data-a="edev" data-id="${e.id}">${esc(e.title)}${e.g?' 📅':''}<small>${tr(e)}${e.g?' · '+esc(e.cal):''}</small></button>`).join('')}</main>${fab('addev')}${micFab()}</div>`}
+function lists(){const o=order(),it=S.items;
+ return`<div class="w">${hdr('Boodschappen','🛍️',`<span class="chip" style="--c:rgba(255,255,255,.25)">👥 ${S.members.length}</span>`)}<main>${chips('lt',lt,[['lijst','🛒 Lijst'],['rec','📖 Recepten']])}${lt==='rec'?recList():`
+ <div class="ar"><span>⊕</span><input id="qa" placeholder="Item toevoegen" enterkeyhint="done"><button class="x ib" style="background:none;color:var(--mu)" data-a="qadd">›</button></div>
+ <div class="row"><select id="rt" style="flex:1">${S.orders.map(x=>`<option value="${x.id}" ${x.id===S.active?'selected':''}>🏬 ${esc(x.name)}</option>`).join('')}</select><button class="btn g" data-a="clr">🧹 Wis afgevinkt</button></div>
+ ${o.cats.map(k=>{const l=it.filter(i=>i.cat===k);if(!l.length)return'';const c=CATS[k],open=l.filter(i=>!i.done).length;return`<button class="cat" style="color:${c[1]}" data-a="col" data-id="${k}">${c[2]} ${c[0]} <span class="mu">${open}</span><em>${col[k]?'⌄':'⌃'}</em></button>`+(col[k]?'':l.sort((a,b)=>a.done-b.done).map(i=>`<div class="it ${i.done?'dn':''}" style="--c:${c[1]}"><button class="ck" data-a="chk" data-id="${i.id}">${i.done?'✓':''}</button><button class="t" data-a="edit" data-id="${i.id}"><b style="font-weight:500">${esc(i.name)}</b>${i.qty?`<small>Aantal: ${esc(i.qty)}</small>`:''}</button><button class="rm" data-a="rmit" data-id="${i.id}" aria-label="Verwijder">✕</button></div>`).join(''))}).join('')||'<div class="empty">Je lijst is leeg 🎉</div>'}`}
+ </main>${fab(lt==='rec'?'addrc':'additem')}</div>`}
+function tasks(){const tk=S.tasks.filter(x=>!tf||x.who?.includes(tf)),ls=[...new Set(tk.map(x=>x.list))];
+ return`<div class="w">${hdr('Taken','📋')}<main>${mfilt('tf',tf)}${ls.map(l=>`<div class="gl">${esc(l).toUpperCase()}</div>`+tk.filter(x=>x.list===l).sort((a,b)=>a.done-b.done).map(x=>`<div class="it ${x.done?'dn':''}" style="--c:${x.who?.length?mem(x.who[0]).color:'#8a93a8'}"><button class="ck" data-a="tgl" data-id="${x.id}">${x.done?'✓':''}</button><button class="t" data-a="edtk" data-id="${x.id}"><b style="font-weight:500">${esc(x.title)}</b>${x.due?`<small${x.due<ymd(new Date())&&!x.done?' style="color:#d9534f"':''}>⏰ ${dl(x.due,{weekday:'short',day:'numeric',month:'short'})}</small>`:''}</button>${(x.who||[]).map(av).join('')}<button class="rm" data-a="rmtk" data-id="${x.id}" aria-label="Verwijder">✕</button></div>`).join('')).join('')||'<div class="empty">Geen taken 🎉</div>'}</main>${fab('addtk')}</div>`}
+function budget(){const d=addDays(new Date(),0);d.setDate(1);d.setMonth(d.getMonth()+bm);const p=ymd(d).slice(0,7),ex=S.exp.filter(x=>x.date.startsWith(p)).sort((a,b)=>b.date.localeCompare(a.date)),sp=ex.filter(x=>!x.inc).reduce((a,x)=>a+x.amt,0),pc=S.budget?Math.round(sp/S.budget*100):0;
+ const row=x=>`<button class="ex" data-a="edex" data-id="${x.id}"><span class="ic">${BC[x.cat]||'📦'}</span><span class="t">${esc(x.note||x.cat)}<small>${x.imp?'🏦 ':''}${x.cat} · ${esc(mem(x.who).name)}</small></span><b style="color:${x.inc?'#3f9d4f':'#d9534f'}">${x.inc?'+':'-'}${eur(x.amt)}</b></button>`;
+ const key={date:x=>x.date,cat:x=>x.cat,member:x=>x.who}[bg],keys=[...new Set(ex.map(key))];
+ const gh=k=>bg==='date'?(k===ymd(new Date())?'Vandaag':dl(k,{weekday:'long',day:'numeric',month:'long'})):bg==='cat'?(BC[k]||'')+' '+k+(S.limits[k]?` · limiet ${eur(S.limits[k])}`:''):mem(k).emoji+' '+mem(k).name;
+ return`<div class="w">${hdr('Gezinsbudget','💰','',`<div class="bud"><span style="opacity:.8;font-size:13px">Totale uitgaven</span><big>${eur(sp)}</big></div>${S.budget?`<div class="bud"><div style="display:flex;justify-content:space-between"><span>Budget: ${eur(S.budget-sp)} ${sp>S.budget?'te veel':'over'}</span><b>${pc}%</b></div><div class="bar"><i style="width:${Math.min(pc,100)}%"></i></div></div>`:''}`)}<main>
+ <div class="dh"><button class="x" data-a="bmn" data-id="-1">◀</button>${dl(ymd(d),{month:'long',year:'numeric'})}<button class="x" data-a="bmn" data-id="1">▶</button></div>
+ <div class="row"><button class="btn g" data-a="imp">📥 ING-export importeren</button><button class="btn g" data-a="impdel" data-id="${p}">🗑️ Importen deze maand wissen</button></div><div class="mu" style="margin-bottom:6px">Mijn ING → Af- en bijschrijvingen → Downloaden → CSV. Dubbele regels worden overgeslagen.</div>${chips('bg',bg,[['date','📅 Datum'],['cat','🏷️ Categorieën'],['member','👤 Leden']])}
+ ${keys.map(k=>{const g=ex.filter(x=>key(x)===k),l=bg==='cat'&&S.limits[k]?g.reduce((a,x)=>a+(x.inc?0:x.amt),0)/S.limits[k]:0;return`<div class="gl">${esc(gh(k))}</div>${l?`<div class="card" style="padding:6px 12px;margin:4px 0"><div class="bar"><i style="width:${Math.min(l*100,100)}%;background:${l>1?'#d9534f':'var(--ac)'}"></i></div></div>`:''}`+g.map(row).join('')}).join('')||'<div class="empty">Geen transacties deze maand</div>'}</main>${fab('addex')}</div>`}
+function meals(){const n=addDays(new Date(),mw*7),mo=addDays(n,-((n.getDay()+6)%7));
+ return`<div class="w">${hdr('Maaltijdplan','🥗',`<button class="ib" data-a="wkl" title="Week naar boodschappenlijst">🛒</button>`)}<main>
+ <div class="dh"><button class="x" data-a="mwn" data-id="-1">◀</button>${addDays(mo,0).getDate()} - ${addDays(mo,6).toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}<button class="x" data-a="mwn" data-id="1">▶</button></div>
+ ${[0,1,2,3,4,5,6].map(i=>{const k=ymd(addDays(mo,i));return`<div class="dh" style="border-top:1px solid var(--ln)"><span>${dl(k,{weekday:'long',day:'numeric',month:'long'})}${k===ymd(new Date())?' · vandaag':''}</span><button class="x" data-a="addml" data-id="${k}">+</button></div>`+S.meals.filter(m=>m.date===k).sort((a,b)=>'bld'.indexOf(a.type)-'bld'.indexOf(b.type)).map(m=>`<div class="ml" style="--c:${MT[m.type][1]}"><div data-a="edml" data-id="${m.id}"><small>${MT[m.type][0]}</small>${esc(m.txt)}</div>${m.rid&&S.recipes.find(r=>r.id===m.rid)?`<button class="ib" style="background:var(--bg)" data-a="mli" data-id="${m.id}">🛒</button>`:''}</div>`).join('')}).join('')}</main>${fab('addml')}</div>`}
+function msgs(){return`<div class="w">${hdr('Berichten','💬')}<main><div class="ar"><input id="mi" placeholder="Schrijf iets aan de familie…" enterkeyhint="send"><button class="btn" data-a="post">Plaats</button></div>${S.msgs.slice().reverse().map(m=>`<div class="card" style="border-left:5px solid ${mem(m.from).color}"><b>${mem(m.from).emoji} ${esc(mem(m.from).name)}</b> <span class="mu">${new Date(m.ts).toLocaleString('nl-NL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>${m.from===me?`<button class="ib" style="float:right;width:26px;height:26px;background:var(--bg)" data-a="dmsg" data-id="${m.id}">✕</button>`:''}<div>${esc(m.txt)}</div></div>`).join('')||'<div class="empty">Nog geen berichten. Zeg hoi! 👋</div>'}</main></div>`}
+function recList(){return`${S.recipes.map(r=>`<div class="card"><h3>${esc(r.title)}</h3>${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener" class="mu">${esc(r.url)}</a>`:''}<pre>${esc((r.ings||[]).map(x=>(x.qty!==''?x.qty+' ':'')+x.name).join('\n'))}</pre>${r.notes?`<details><summary class="mu">Bereiding</summary><pre>${esc(r.notes)}</pre></details>`:''}<div class="row"><button class="btn" data-a="rcl" data-id="${r.id}">🛒 Op de lijst</button><button class="btn g" data-a="edrc" data-id="${r.id}">✏️ Bewerk</button></div></div>`).join('')||'<div class="empty">Nog geen recepten. Tik op + en plak een link of de tekst van een receptpagina.</div>'}`}
+function contacts(){return`<div class="w">${hdr('Contacten','📇')}<main>${S.contacts.map(c=>`<div class="card"><div class="row" style="margin:0"><div style="flex:1"><b>${esc(c.name)}</b><div class="mu">${esc(c.role)}</div></div>${c.phone?`<a class="btn" style="text-decoration:none" href="tel:${esc(c.phone)}">📞 ${esc(c.phone)}</a>`:''}<button class="ib" style="background:var(--bg)" data-a="edct" data-id="${c.id}">✏️</button></div></div>`).join('')||'<div class="empty">Nog geen contacten.</div>'}</main>${fab('addct')}</div>`}
+function settings(){const o=order();return`<div class="w">${hdr('Instellingen','⚙️')}<main>
+ <div class="card"><h3>Gezin</h3><label class="lb">Naam van het gezin</label><input data-set="fam" value="${esc(S.fam)}"><label class="lb">Dit apparaat is van</label><select id="mesel">${S.members.map(m=>`<option value="${m.id}" ${m.id===me?'selected':''}>${m.emoji} ${esc(m.name)}</option>`).join('')}</select><div style="height:8px"></div>${S.members.map(m=>`<div class="cr"><input data-mf="emoji" data-id="${m.id}" value="${esc(m.emoji)}" style="width:54px;text-align:center"><input data-mf="name" data-id="${m.id}" value="${esc(m.name)}"><input type="color" data-mf="color" data-id="${m.id}" value="${m.color}" style="width:50px;padding:2px"><button class="ib" style="background:var(--bg)" data-a="delm" data-id="${m.id}">✕</button></div>`).join('')}<button class="btn g" data-a="addm">➕ Lid toevoegen</button></div>
+ <div class="card"><h3>Winkelroute (sorteervolgorde)</h3><div class="row"><select id="osel" style="flex:1">${S.orders.map(x=>`<option value="${x.id}" ${x.id===S.active?'selected':''}>${esc(x.name)}</option>`).join('')}</select><button class="btn g" data-a="onew">➕</button><button class="btn g" data-a="odup">⧉</button><button class="btn r" data-a="odel">🗑️</button></div><input data-set="oname" value="${esc(o.name)}">${o.cats.map((k,n)=>`<div class="cr"><span class="av" style="--c:${CATS[k][1]}">${CATS[k][2]}</span><span style="flex:1">${n+1}. ${CATS[k][0]}</span><button class="btn g" data-a="up" data-id="${n}" ${n?'':'disabled'}>▲</button><button class="btn g" data-a="dn" data-id="${n}" ${n<o.cats.length-1?'':'disabled'}>▼</button></div>`).join('')}</div>
+ <div class="card"><h3>Budget</h3><label class="lb">Maandbudget (€)</label><input type="number" data-set="budget" value="${S.budget||''}">${Object.keys(BC).filter(k=>k!=='Salaris').map(k=>`<label class="lb">${BC[k]} Limiet ${k}</label><input type="number" data-lim="${k}" value="${S.limits[k]||''}">`).join('')}</div>
+ <div class="card"><h3>Weergave</h3><div class="row">${[['auto','Automatisch'],['light','Licht'],['dark','Donker']].map(([k,l])=>`<button class="btn ${S.theme===k?'':'g'}" data-a="th" data-id="${k}">${l}</button>`).join('')}</div></div>
+ <div class="card"><h3>Startscherm</h3><div class="mu">Sleep de tegels aan het ⋮⋮-handvat linksboven om ze te verplaatsen.</div><button class="btn g" style="margin-top:8px" data-a="tilereset">↺ Standaardvolgorde</button></div>${gSet()}</main></div>`}
+const V={home,cal,lists,tasks,budget,meals,msgs,contacts,settings,loc:locView};
+function render(){const a=document.activeElement,keep=a&&a.dataset&&a.dataset.mf?[a.dataset.mf,a.dataset.id]:null;
+ const el=$('#app');el.style.setProperty('--h',COL[view]||COL.home);el.innerHTML=(V[view]||home)();if(view==='loc')mapInit();else killMap();
+ if(keep){const e=document.querySelector(`[data-mf="${keep[0]}"][data-id="${keep[1]}"]`);e?.focus()}}
+const go=v=>{view=v;scrollTo(0,0);render()};
+let dg=null;
+document.addEventListener('pointerdown',e=>{const h=e.target.closest('.th');if(!h)return;dg=h.closest('.tile');dg.classList.add('dg');h.setPointerCapture?.(e.pointerId);e.preventDefault()});
+document.addEventListener('pointermove',e=>{if(!dg)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest('.tile');if(!o||o===dg||o.parentNode!==dg.parentNode)return;const g=dg.parentNode,k=[...g.children];g.insertBefore(dg,k.indexOf(dg)<k.indexOf(o)?o.nextSibling:o)});
+const endTile=()=>{if(!dg)return;dg.classList.remove('dg');S.tiles=[...dg.parentNode.children].map(x=>x.dataset.tid);dg=null;save();render()};
+document.addEventListener('pointerup',endTile);document.addEventListener('pointercancel',endTile);
+// ---------- bank-import (ING csv) ----------
+const BK={Boodschappen:'delhaize,colruyt,albert heijn,jumbo,aldi,lidl,carrefour,spar ,okay,bakker,slager,intermarche,ah to go',Vervoer:'shell,q8,esso,texaco,total,nmbs,sncb,de lijn,ns ,parking,uber,lukoil,tango',['Vaste lasten']:'huur,verzekering,ethias,axa,engie,luminus,fluvius,telenet,proximus,orange,water,belasting,hypotheek,lening,energie,vivaqua,mobistar',Kinderen:'school,kinderopvang,crèche,creche,smyths,speelgoed,kind',['Vrije tijd']:'netflix,spotify,kinepolis,cinema,restaurant,cafe,café,steam,disney,pizza,mcdonald,burger,bioscoop,zwembad',Kleding:'h&m,zara,c&a,primark,zeeman,jbc,decathlon,e5 mode'};
+const keyOf=t=>t.toLowerCase().replace(/betaling met (de )?(debet|krediet)kaart|nummer|europese domiciliëring|domiciliëring|overschrijving naar|overschrijving van|via mobile banking|[^a-zà-ÿ& ]/g,' ').replace(/\b(x+|betaling)\b/g,' ').replace(/\s+/g,' ').trim().slice(0,22);
+function catFor(key,txt,inc){if(S.rules[key])return S.rules[key];const t=txt.toLowerCase();if(inc)return /loon|salaris|wedde|payroll/.test(t)?'Salaris':'Overig';for(const c in BK)if(BK[c].split(',').some(w=>t.includes(w)))return c;return'Overig'}
+function csvRows(t){const f=t.split('\n')[0],dl=f.split(';').length>f.split(',').length?';':',',rows=[];let r=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===dl){r.push(c);c=''}else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&t[i+1]==='\n')i++;r.push(c);c='';if(r.some(x=>x.trim()))rows.push(r);r=[]}else c+=ch}if(c||r.length){r.push(c);if(r.some(x=>x.trim()))rows.push(r)}return rows}
+function pDate(s){s=String(s||'').trim();let m;if(m=s.match(/^(\d{4})(\d{2})(\d{2})$/))return m[1]+'-'+m[2]+'-'+m[3];if(m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/))return m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');if(m=s.match(/^(\d{4})-(\d{2})-(\d{2})/))return m[0];return''}
+function pAmt(s){s=String(s||'').replace(/[^\d,.\-+]/g,'');if(s.includes(',')&&s.includes('.'))s=s.lastIndexOf(',')>s.lastIndexOf('.')?s.replace(/\./g,'').replace(',','.'):s.replace(/,/g,'');else s=s.replace(',','.');return parseFloat(s)}
+function importING(txt){const rows=csvRows(txt.replace(/^\uFEFF/,'')),hi=rows.findIndex(r=>r.some(c=>/datum/i.test(c))&&r.some(c=>/bedrag/i.test(c)));if(hi<0)return toast('Geen kolommen “datum” en “bedrag” gevonden');
+ const H=rows[hi].map(c=>c.trim().toLowerCase()),ix=f=>H.findIndex(f),iB=ix(h=>h==='boekingsdatum'),iD=iB>=0?iB:ix(h=>h.startsWith('datum')),iA=ix(h=>h.startsWith('bedrag')),iS=ix(h=>h==='af bij'),iT=H.map((h,i)=>/naam|omschrijving|detail|mededeling|bericht/.test(h)&&!/rekening/.test(h)?i:-1).filter(i=>i>=0);
+ const have=new Set(S.exp.map(x=>x.h)),seen={};let add=0,dup=0;
+ rows.slice(hi+1).forEach(r=>{const date=pDate(r[iD]),a=pAmt(r[iA]);if(!date||isNaN(a)||!a)return;const inc=iS>=0?/bij/i.test(r[iS]||''):a>0,amt=Math.abs(a),txt2=iT.map(i=>(r[i]||'').trim()).filter(Boolean).join(' · ').replace(/\s+/g,' ');
+  let h=date+'|'+(inc?'+':'-')+amt+'|'+txt2.slice(0,50);seen[h]=(seen[h]||0)+1;h+='#'+seen[h];if(have.has(h)){dup++;return}
+  const key=keyOf(txt2);S.exp.push({id:uid(),h,imp:true,key,amt,inc,note:txt2.slice(0,60),cat:catFor(key,txt2,inc),date,who:me});add++});
+ save();render();toast(add+' toegevoegd'+(dup?', '+dup+' dubbel overgeslagen':''))}
+async function readCsv(f){const buf=await f.arrayBuffer();let t=new TextDecoder('utf-8').decode(buf);if(t.includes('\uFFFD'))t=new TextDecoder('windows-1252').decode(buf);importING(t)}
+const micFab=()=>'<button class="mic" data-a="mic" aria-label="Afspraak inspreken">🎤</button>';
+// ---------- spraak → afspraak ----------
+let recOn=false,rec=null;
+const W={een:1,twee:2,drie:3,vier:4,vijf:5,zes:6,zeven:7,acht:8,negen:9,tien:10,elf:11,twaalf:12},WN=Object.keys(W).join('|'),nv=x=>/^\d/.test(x)?+x:W[x];
+const MO=['jan','feb','maa','apr','mei','jun','jul','aug','sep','okt','nov','dec'],DW=['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'],pad=n=>String(n).padStart(2,'0');
+const R=re=>new RegExp(re.source.replace(/@/g,WN));
+const TP=[[/\bkwart over (\d{1,2}|@)\b/,m=>[nv(m[1]),15]],[/\bkwart voor (\d{1,2}|@)\b/,m=>[nv(m[1])-1||12,45]],[/\bhalf (\d{1,2}|@)\b/,m=>[nv(m[1])-1||12,30]],
+ [/\b(\d{1,2})(?::|\.| ?uur ?| ?u ?)(\d{2})\b/,m=>[+m[1],+m[2]]],[/\b(\d{1,2}|@) ?(?:uur|u)\b/,m=>[nv(m[1]),0]],[/\bom (\d{1,2})\b(?!\d|\s?(?:jan|feb|maa|mrt|apr|mei|jun|jul|aug|sep|okt|nov|dec))/,m=>[+m[1],0]]].map(([r,f])=>[R(r),f]);
+function ext(str){for(const[re,f]of TP){const m=str.match(re);if(!m)continue;const[h,mi]=f(m);if(h>=0&&h<=23&&mi<60)return{h,m:mi,i:m.index,l:m[0].length}}return null}
+function parseVoice(raw){const now=new Date();now.setHours(12,0,0,0);let s=' '+raw.toLowerCase().replace(/[,!?]/g,' ')+' ',time='',end='',hint='',d=null,m;
+ const cut=re=>{const x=s.match(re);if(!x)return null;s=s.slice(0,x.index)+' '+s.slice(x.index+x[0].length);return x};
+ s=s.replace(/\bvan(ochtend|morgen)\b/g,' vandaag ochtend ').replace(/\bvanmiddag\b/g,' vandaag middag ').replace(/\bvanavond\b/g,' vandaag avond ').replace(/\b(over)?morgen(ochtend|middag|avond)\b/g,(x,o,p)=>(o?' overmorgen ':' morgen ')+p+' ');
+ s=s.replace(/\bvan (\d{1,2})(?:[:.](\d{2}))? (?:uur )?tot (\d{1,2})(?:[:.](\d{2}))?(?: uur)?\b/,(x,h1,m1,h2,m2)=>' '+h1+':'+(m1||'00')+' tot '+h2+':'+(m2||'00')+' ');
+ if(m=cut(/\b(?:'?s\s+)?(ochtends?|morgens|voormiddag|middags?|namiddag|avonds?|nachts)\b/))hint=/^(och|morg|voor)/.test(m[1])?'am':'pm';
+ const a=ext(s);let t1=null,t2=null;
+ if(a){s=s.slice(0,a.i)+' '+s.slice(a.i+a.l);t1=a;const ti=s.search(/\btot\b/);if(ti>=0){const b=ext(s.slice(ti+3));if(b){s=s.slice(0,ti)+' '+s.slice(ti+3+b.i+b.l);t2=b}}}
+ const ad=t=>{let h=t.h;if(h>=1&&h<=12){if(hint==='pm'&&h<12)h+=12;else if(!hint&&h<=6)h+=12}return pad(h)+':'+pad(t.m)};
+ if(t1)time=ad(t1);if(t2){end=ad(t2);if(end<=time&&t2.h<12)end=pad(t2.h+12)+':'+pad(t2.m)}
+ const nw=cut(/\b(?:volgende|komende|aanstaande) week\b/),yr=now.getFullYear(),fut=x=>ymd(x)<ymd(now)?new Date(x.getFullYear()+1,x.getMonth(),x.getDate(),12):x;
+ if(cut(/\bovermorgen\b/))d=addDays(now,2);else if(cut(/\bmorgen\b/))d=addDays(now,1);else if(cut(/\bvandaag\b/))d=now;
+ else if(m=cut(R(/\bover (\d+|@) (dag|dagen|week|weken)\b/)))d=addDays(now,nv(m[1])*(m[2][0]==='w'?7:1));
+ else if(m=cut(/\b(\d{1,2})(?:e|ste|de)?\s+(jan|feb|maa|mrt|apr|mei|jun|jul|aug|sep|okt|nov|dec)\w*/))d=fut(new Date(yr,m[2]==='mrt'?2:MO.indexOf(m[2]),+m[1],12));
+ else if(m=cut(/\b(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2,4}))?\b/))d=m[3]?new Date(+m[3]<100?2000+ +m[3]:+m[3],m[2]-1,+m[1],12):fut(new Date(yr,m[2]-1,+m[1],12));
+ else if(m=cut(/\bop de (\d{1,2})(?:e|ste|de)?\b/)){d=new Date(yr,now.getMonth(),+m[1],12);if(d<now)d=new Date(yr,now.getMonth()+1,+m[1],12)}
+ else if(m=cut(/\b(?:(?:volgende|aanstaande|komende)\s+)?(zondag|maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag)\b/)){const k=DW.indexOf(m[1]);d=nw?addDays(now,7-((now.getDay()+6)%7)+(k+6)%7):addDays(now,(k-now.getDay()+7)%7||7)}
+ else if(nw)d=addDays(now,7);
+ let who=[me];if(cut(/\bvoor (ons|ons allebei|iedereen|samen)\b/))who=S.members.map(x=>x.id);else for(const x of S.members){if(cut(new RegExp('\\bvoor '+x.name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b'))){who=[x.id];break}}
+ cut(/\bvoor (mij|mezelf|me)\b/);
+ s=s.replace(/\b(zet|zeg|plan|maak|voeg|leg|toe|in de agenda|in mijn agenda|in onze agenda|in de kalender|een nieuwe afspraak|nieuwe afspraak|een afspraak|afspraak|herinner me aan|herinner me|agenda)\b/g,' ');
+ const FW=new Set(['op','om','van','tot','de','het','een','in','aan','toe','voor','met','en','te','dan','dat','ik','mij','me','wil','moet','graag']),w=s.split(/\s+/).filter(Boolean);
+ while(w.length&&FW.has(w[0]))w.shift();while(w.length&&FW.has(w[w.length-1]))w.pop();
+ const og={};raw.split(/\s+/).forEach(x=>{x=x.replace(/[,!?]/g,'');og[x.toLowerCase()]=x});const title=cap(w.map(x=>og[x]||x).join(' ')||'afspraak');return{title,date:d?ymd(d):cd,time,end,who}}
+function micUI(t){let b=$('#micbar');if(!t){b?.remove();$('.mic')?.classList.remove('on');return}if(!b){b=document.createElement('div');b.id='micbar';document.body.append(b)}b.textContent=t;$('.mic')?.classList.add('on')}
+const voiceEvent=t=>{const r=parseVoice(t);toast('“'+t+'”');fEvent({title:r.title,date:r.date,time:r.time,end:r.end,who:r.who})};
+const typeEvent=()=>sheet('Afspraak inspreken of typen',[{id:'txt',l:'Zeg of typ je afspraak (op je toetsenbord: 🎤)',p:'Tandarts volgende dinsdag om 14 uur'}],{txt:''},v=>{if(!v.txt.trim())return false;setTimeout(()=>voiceEvent(v.txt.trim()),0)});
+function micStart(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return typeEvent();if(recOn){rec.stop();return}
+ rec=new SR();rec.lang='nl-NL';rec.interimResults=true;rec.continuous=false;let all='',bad=false;
+ rec.onstart=()=>{recOn=true;micUI('🎤 Ik luister… bijv. “Tandarts dinsdag om 14 uur”')};
+ rec.onresult=e=>{all=[...e.results].map(r=>r[0].transcript).join(' ');micUI('🎤 '+all)};
+ rec.onerror=e=>{bad=true;recOn=false;micUI('');if(e.error==='no-speech')toast('Niets gehoord');else if(e.error==='not-allowed')toast('Microfoon geweigerd. Sta toe in de instellingen.');else typeEvent()};
+ rec.onend=()=>{recOn=false;micUI('');if(!bad&&all.trim())voiceEvent(all.trim())};
+ try{rec.start()}catch(e){typeEvent()}}
+// ---------- agenda-weergaven ----------
+let cv='lijst';try{cv=localStorage.getItem('cv')||'lijst'}catch(e){}
+const today=()=>ymd(new Date());
+const isoWk=d=>{const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7));return Math.ceil(((t-Date.UTC(t.getUTCFullYear(),0,1))/864e5+1)/7)};
+const cvChips=()=>chips('cvw',cv,[['dag','Dag'],['week','Week'],['maand','Maand'],['lijst','Komend']])+(cv==='dag'?'':'<div class="row"><button class="btn g" data-a="addev">+ Afspraak</button><button class="btn g" data-a="addtk">+ Taak</button></div>');
+const evRow=e=>`<button class="ml" style="--c:${evCol(e)}" data-a="edev" data-id="${e.id}"><div><small>${tr(e)}${e.g?' · 📅 '+esc(e.cal):''}</small>${esc(e.title)}${e.rem?' ⏰':''}</div>${(e.who||[]).map(av).join('')}</button>`;
+const tkRow=x=>`<div class="ml" style="--c:#4a9d6e"><button class="ck" style="--c:#4a9d6e" data-a="tgl" data-id="${x.id}"></button><div data-a="edtk" data-id="${x.id}"><small>Taak${x.list&&x.list!=='Algemeen'?' · '+esc(x.list):''}${x.due&&x.due<today()?' · te laat':''}</small>${esc(x.title)}</div>${(x.who||[]).map(av).join('')}</div>`;
+const dayBlock=(k,empty)=>{const e=evOn(k),t=S.tasks.filter(x=>x.due===k&&!x.done);if(!e.length&&!t.length&&!empty)return'';return`<div class="dy ${k===today()?'td':''}">${k===today()?'Vandaag · ':''}${dl(k,{weekday:'long',day:'numeric',month:'long'})}</div>`+(e.map(evRow).join('')+t.map(tkRow).join('')||'<div class="mu" style="padding:0 4px">Niets gepland</div>')};
+const calPage=(t,right,inner,body)=>`<div class="w">${hdr(t,'🗓️',right,inner,'lt')}<main>${cvChips()}${body}</main>${fab('addev')}${micFab()}</div>`;
+function calWeek(){const d=P(cd),mo=addDays(d,-((d.getDay()+6)%7));
+ return calPage('Week '+isoWk(mo),`<button class="ib" data-a="cdn" data-id="-7">◀</button><button class="ib" data-a="cdn" data-id="0">•</button><button class="ib" data-a="cdn" data-id="7">▶</button>`,`<div class="mu">${mo.getDate()} - ${addDays(mo,6).toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}</div>`,[0,1,2,3,4,5,6].map(i=>dayBlock(ymd(addDays(mo,i)),true)).join(''))}
+function calMonth(){const d=P(cd),f=new Date(d.getFullYear(),d.getMonth(),1,12),off=(f.getDay()+6)%7,st=addDays(f,-off),n=Math.ceil((off+new Date(d.getFullYear(),d.getMonth()+1,0).getDate())/7)*7;
+ const cells=Array.from({length:n},(_,i)=>{const x=addDays(st,i),k=ymd(x),dots=[...evOn(k).map(e=>evCol(e)),...S.tasks.filter(z=>z.due===k&&!z.done).map(()=>'#4a9d6e')];return`<button class="mc ${x.getMonth()!==d.getMonth()?'o':''} ${k===today()?'td':''} ${k===cd?'on':''}" data-a="cd2" data-id="${k}"><b>${x.getDate()}</b><span class="dots">${dots.slice(0,4).map(c=>`<i style="--c:${c}"></i>`).join('')}</span></button>`}).join('');
+ return calPage(dl(cd,{month:'long',year:'numeric'}),`<button class="ib" data-a="cmn" data-id="-1">◀</button><button class="ib" data-a="cmn" data-id="0">•</button><button class="ib" data-a="cmn" data-id="1">▶</button>`,'',`<div class="mh">${[...'MDWDVZZ'].map(c=>`<span>${c}</span>`).join('')}</div><div class="mg">${cells}</div>`+dayBlock(cd,true))}
+function calList(){const t=today(),od=S.tasks.filter(x=>!x.done&&x.due&&x.due<t).sort((a,b)=>a.due.localeCompare(b.due)),nd=S.tasks.filter(x=>!x.done&&!x.due);let any='';for(let i=0;i<30;i++)any+=dayBlock(ymd(addDays(new Date(),i)),false);
+ const b=(od.length?'<div class="dy" style="color:#d9534f">⚠️ Te laat</div>'+od.map(tkRow).join(''):'')+(any||'<div class="empty">Niets gepland de komende 30 dagen 🎈</div>')+(nd.length?'<div class="dy">📝 Open taken zonder datum</div>'+nd.map(tkRow).join(''):'');
+ return calPage('Komende dagen','','<div class="mu">Afspraken en taken, volgende 30 dagen</div>',b)}
+function cal(){return cv==='week'?calWeek():cv==='maand'?calMonth():cv==='lijst'?calList():calDay()}
+// ---------- Google Agenda (alleen lezen) ----------
+let G=[],gCal=[],gtok=null,gexp=0,GL=null;
+try{G=JSON.parse(localStorage.getItem('gev')||'[]');gCal=JSON.parse(localStorage.getItem('gcal')||'[]')}catch(e){}
+const gcfg=()=>S.gcfg=S.gcfg||{cid:'',cals:{}},gOn=()=>{try{return localStorage.getItem('gconn')==='1'}catch(e){return false}};
+const gLoad=()=>window.google?.accounts?Promise.resolve():GL||(GL=new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.onload=ok;s.onerror=()=>{GL=null;no('net')};document.head.append(s)}));
+async function gAuth(inter){await gLoad();return new Promise((ok,no)=>{google.accounts.oauth2.initTokenClient({client_id:gcfg().cid,scope:'https://www.googleapis.com/auth/calendar.readonly',
+ callback:r=>{if(r.error)return no(r.error);gtok=r.access_token;gexp=Date.now()+(r.expires_in-60)*1000;try{localStorage.setItem('gconn','1')}catch(e){}ok()},error_callback:e=>no(e.type||'err')}).requestAccessToken({prompt:inter?'select_account':''})})}
+async function gApi(u){const r=await fetch('https://www.googleapis.com/calendar/v3/'+u,{headers:{Authorization:'Bearer '+gtok}});if(!r.ok){if(r.status===401)gtok=null;throw r.status}return r.json()}
+function gConv(it,cal,m){const b={title:it.summary||'(geen titel)',cal:cal.name,g:1,who:m?[m]:[],col:cal.color},o=[];
+ if(it.start.date){let d=P(it.start.date);const e=P(it.end.date);for(let i=0;d<e&&i<31;i++,d=addDays(d,1))o.push({...b,id:'g_'+it.id+'_'+i,date:ymd(d)})}
+ else{const s=new Date(it.start.dateTime),e=new Date(it.end.dateTime),t=x=>x.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});o.push({...b,id:'g_'+it.id,date:ymd(s),time:t(s),end:t(e)})}return o}
+async function gSync(inter){const c=gcfg();if(!c.cid)throw'cid';if(!gtok||Date.now()>gexp)await gAuth(inter);
+ gCal=(await gApi('users/me/calendarList?minAccessRole=reader')).items.map(k=>({id:k.id,name:k.summaryOverride||k.summary,color:k.backgroundColor,primary:!!k.primary}));
+ if(!Object.keys(c.cals).length){const p=gCal.find(k=>k.primary)||gCal[0];if(p){c.cals[p.id]={on:true,m:me};save()}}
+ const min=encodeURIComponent(addDays(new Date(),-14).toISOString()),max=encodeURIComponent(addDays(new Date(),120).toISOString()),out=[],seen=new Set();
+ for(const k of gCal){const s=c.cals[k.id];if(!s?.on)continue;try{const r=await gApi('calendars/'+encodeURIComponent(k.id)+'/events?singleEvents=true&orderBy=startTime&maxResults=500&timeMin='+min+'&timeMax='+max);
+  (r.items||[]).filter(i=>i.status!=='cancelled'&&i.start&&i.end).forEach(i=>gConv(i,k,s.m).forEach(e=>{const key=e.title+'|'+e.date+'|'+(e.time||'');if(!seen.has(key)){seen.add(key);out.push(e)}}))}catch(x){}}
+ G=out;try{localStorage.setItem('gev',JSON.stringify(G));localStorage.setItem('gcal',JSON.stringify(gCal))}catch(e){}
+ if(!SH&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||''))render()}
+function gSet(){const c=gcfg();return`<div class="card"><h3>📅 Google Agenda</h3><label class="lb">OAuth Client-ID (Google Cloud)</label><input data-set="gcid" value="${esc(c.cid)}" placeholder="…apps.googleusercontent.com"><div class="row"><button class="btn" data-a="gcon">${gtok?'🔄 Synchroniseren':'🔗 Verbind Google Agenda'}</button></div>
+ ${gCal.map(k=>{const s=c.cals[k.id];return`<div class="cr"><input type="checkbox" data-gc="${esc(k.id)}" ${s?.on?'checked':''} style="width:22px;flex:none"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis">${esc(k.name)}</span><select data-gm="${esc(k.id)}" style="width:130px">${[['','Gezamenlijk'],...S.members.map(m=>[m.id,m.emoji+' '+m.name])].map(([v,n])=>`<option value="${esc(v)}" ${(s?.m||'')===v?'selected':''}>${esc(n)}</option>`).join('')}</select></div>`}).join('')}
+ <div class="mu">${G.length} afspraken geladen · alleen lezen. Kies per agenda van wie hij is.</div></div>`}
+// ---------- locatie ----------
+let map=null,mk={},ci={},wid=null,lastPush=0,LP=null,LL=null;
+const shareOn=()=>{try{return localStorage.getItem('locshare')==='1'}catch(e){return false}},setShare=v=>{try{localStorage.setItem('locshare',v?'1':'0')}catch(e){}};
+const ago=ts=>{const m=Math.round((Date.now()-ts)/60000);return m<1?'zojuist':m<60?m+' min geleden':m<1440?Math.floor(m/60)+' u geleden':dl(ymd(new Date(ts)),{weekday:'short',day:'numeric',month:'short'})+' '+new Date(ts).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'})};
+const dist=(a,b)=>{const r=Math.PI/180,x=(b.lng-a.lng)*r*Math.cos((a.lat+b.lat)*r/2),y=(b.lat-a.lat)*r;return Math.hypot(x,y)*6371000};
+function locSub(){const o=S.members.find(m=>m.id!==me&&S.loc[m.id]);return o?esc(o.name)+' · '+ago(S.loc[o.id].ts):shareOn()?'Je deelt je locatie':'Deel je locatie'}
+function onPos(p,force){const c=p.coords,n=Date.now(),o={lat:+c.latitude.toFixed(5),lng:+c.longitude.toFixed(5),acc:Math.round(c.accuracy),ts:n};
+ if(!force&&LP&&(n-lastPush<20000||(n-lastPush<180000&&dist(LP,o)<25)))return;
+ LP=o;lastPush=n;S.loc[me]=o;if(ref)ref.set({loc:{[me]:o}}).catch(()=>{});locRefresh()}
+function onErr(e){if(e&&e.code===1){setShare(false);stopLoc();toast('Locatietoegang geweigerd. Zet die aan in de browserinstellingen.');if(view==='loc')render()}}
+function startLoc(){if(!navigator.geolocation){setShare(false);return toast('Locatie niet beschikbaar op dit toestel')}
+ if(wid==null)wid=navigator.geolocation.watchPosition(p=>onPos(p),onErr,{enableHighAccuracy:true,maximumAge:15000,timeout:30000});
+ navigator.geolocation.getCurrentPosition(p=>onPos(p,true),onErr,{enableHighAccuracy:true,timeout:20000,maximumAge:0})}
+function stopLoc(){if(wid!=null){navigator.geolocation.clearWatch(wid);wid=null}}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&shareOn()){stopLoc();startLoc()}});
+setInterval(()=>{if(document.visibilityState!=='visible')return;if(shareOn())navigator.geolocation?.getCurrentPosition(p=>onPos(p,true),()=>{},{enableHighAccuracy:true,timeout:20000});if(view==='loc')locRefresh()},120000);
+function mergeLoc(L){if(!L)return;let ch=false;Object.entries(L).forEach(([k,v])=>{if(!v){if(S.loc[k]){delete S.loc[k];ch=true}}else if(!S.loc[k]||v.ts>S.loc[k].ts){S.loc[k]=v;ch=true}});if(ch&&view==='loc')locRefresh()}
+function locList(){return S.members.map(m=>{const v=S.loc[m.id],old=v&&Date.now()-v.ts>1800000;return`<div class="lm">${av(m.id)}<div class="t"><b>${esc(m.name)}${m.id===me?' (jij)':''}</b><small>${v?(old?'⚠️ ':'')+ago(v.ts)+' · ±'+v.acc+' m':'Deelt geen locatie'}</small></div>${v?`<button class="ib" style="background:var(--bg)" data-a="locc" data-id="${m.id}" aria-label="Toon op kaart">🎯</button><a class="ib" style="background:var(--bg);text-decoration:none;display:grid;place-items:center" href="https://maps.apple.com/?daddr=${v.lat},${v.lng}" target="_blank" rel="noopener" aria-label="Route">🧭</a>`:''}</div>`}).join('')}
+function locView(){const on=shareOn();
+ return`<div class="w">${hdr('Locatie','📍')}<main><div class="card"><h3>${on?'📡 Je deelt je locatie':'Locatie delen'}</h3><div class="mu">Dit apparaat is van <b>${mem(me).emoji} ${esc(mem(me).name)}</b> (wijzigen kan in Instellingen). ${on?'Je positie wordt bijgewerkt zolang deze app open op je scherm staat.':'Je partner ziet dan waar je bent op de kaart.'}</div><div class="row"><button class="btn ${on?'g':''}" data-a="locshare">${on?'⏹ Stop met delen':'📍 Deel mijn locatie'}</button>${on?'<button class="btn g" data-a="locnow">🔄 Nu verversen</button>':''}</div></div><div id="map"></div><div class="card" id="loclist">${locList()}</div></main></div>`}
+const loadLeaflet=()=>window.L?Promise.resolve():LL||(LL=new Promise((ok,no)=>{const l=document.createElement('link');l.rel='stylesheet';l.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';document.head.append(l);const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';s.onload=ok;s.onerror=()=>{LL=null;no()};document.head.append(s)}));
+function killMap(){if(map){map.remove();map=null}mk={};ci={}}
+function mapInit(){killMap();const el=$('#map');if(!el)return;loadLeaflet().then(()=>{if($('#map')!==el)return;map=L.map(el,{zoomControl:false}).setView([50.85,4.35],8);L.control.zoom({position:'bottomright'}).addTo(map);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);drawPins(true)}).catch(()=>{el.innerHTML='<div class="empty">Kaart kon niet laden. Gebruik de 🧭-knop hieronder.</div>'})}
+function drawPins(fit){if(!map)return;const pts=[];S.members.forEach(m=>{const v=S.loc[m.id];if(!v){if(mk[m.id]){map.removeLayer(mk[m.id]);map.removeLayer(ci[m.id]);delete mk[m.id];delete ci[m.id]}return}
+ const ll=[v.lat,v.lng],old=Date.now()-v.ts>1800000,ic=L.divIcon({className:'',html:`<div class="pin ${old?'st':''}" style="--c:${m.color}">${esc(m.emoji)}</div>`,iconSize:[36,36],iconAnchor:[18,18]});
+ if(mk[m.id]){mk[m.id].setLatLng(ll).setIcon(ic);ci[m.id].setLatLng(ll).setRadius(v.acc)}else{mk[m.id]=L.marker(ll,{icon:ic}).addTo(map);ci[m.id]=L.circle(ll,{radius:v.acc,color:m.color,weight:1,fillOpacity:.12}).addTo(map)}pts.push(ll)});
+ if(fit&&pts.length)pts.length===1?map.setView(pts[0],15):map.fitBounds(pts,{padding:[50,50],maxZoom:16})}
+function locRefresh(){const l=$('#loclist');if(l)l.innerHTML=locList();drawPins(false)}
+// ---------- acties ----------
+const done=()=>{save();render()};
+const A={
+ lt:d=>{lt=d.id;render()},go:(d)=>go(d.id),closesh:(d,t,e)=>{if(e.target===t){SH=null;drawSh()}},
+ tg:d=>{syncSh();const l=SH.v[d.f]=SH.v[d.f]||[],n=l.indexOf(d.id);n<0?l.push(d.id):l.splice(n,1);drawSh()},
+ pk:d=>{syncSh();SH.v[d.f]=d.id;drawSh()},
+ oksh:()=>{syncSh();if(SH.ok(SH.v)!==false){SH=null;drawSh();done()}},
+ delsh:()=>{if(confirm('Verwijderen?')){SH.del();SH=null;drawSh();done()}},
+ exsh:()=>{syncSh();SH.extra.fn()},
+ cdn:d=>{cd=d.id==='0'?ymd(new Date()):ymd(addDays(P(cd),+d.id));render()},cd2:d=>{cd=d.id;render()},
+ addev:d=>fEvent({},d.id),edev:d=>{const e=S.events.find(x=>x.id===d.id);e?fEvent(e):toast('Uit Google Agenda. Wijzig het daar.')},
+ additem:()=>fItem(),edit:d=>fItem(S.items.find(x=>x.id===d.id)),
+ rmit:d=>{S.items=S.items.filter(x=>x.id!==d.id);done()},rmtk:d=>{S.tasks=S.tasks.filter(x=>x.id!==d.id);done()},qadd:()=>addItem(),chk:d=>{const i=S.items.find(x=>x.id===d.id);i.done=!i.done;done()},
+ col:d=>{col[d.id]=!col[d.id];render()},clr:()=>{S.items=S.items.filter(x=>!x.done);done()},
+ addtk:()=>fTask(),edtk:d=>fTask(S.tasks.find(x=>x.id===d.id)),tgl:d=>{const x=S.tasks.find(x=>x.id===d.id);x.done=!x.done;done()},tf:d=>{tf=d.id;render()},
+ addex:()=>fExp(),edex:d=>fExp(S.exp.find(x=>x.id===d.id)),bmn:d=>{bm+=+d.id;render()},bg:d=>{bg=d.id;render()},
+ addml:d=>fMeal({},d.id),edml:d=>fMeal(S.meals.find(x=>x.id===d.id)),mwn:d=>{mw+=+d.id;render()},
+ mli:d=>{const m=S.meals.find(x=>x.id===d.id),r=S.recipes.find(x=>x.id===m?.rid);if(!r)return;const k=wkKey(m.date);if(wasAdded(r,k)&&!confirm(CONF))return;mark(r,k);toast(addRecipe(r)+' ingrediënten verwerkt');save()},
+ wkl:()=>{const n=addDays(new Date(),mw*7),k=wkKey(n),mo=k,en=ymd(addDays(P(mo),6)),ms=S.meals.filter(m=>m.date>=mo&&m.date<=en&&S.recipes.some(r=>r.id===m.rid)),dup=[...new Set(ms.map(m=>m.rid))].filter(id=>wasAdded(S.recipes.find(r=>r.id===id),k)),all=!dup.length||confirm('Voor '+dup.length+' recept(en) zijn de ingrediënten deze week al toegevoegd. Ben je zeker dat je die nog eens wilt toevoegen?\n\nOK = ook opnieuw toevoegen\nAnnuleren = alleen de nieuwe');let c=0;ms.forEach(m=>{const r=S.recipes.find(x=>x.id===m.rid);if(!all&&dup.includes(r.id))return;c+=addRecipe(r)});ms.forEach(m=>{if(all||!dup.includes(m.rid))mark(S.recipes.find(r=>r.id===m.rid),k)});toast(c?c+' ingrediënten verwerkt':'Niets nieuws toegevoegd');save()},
+ post:()=>{const x=$('#mi').value.trim();if(!x)return;S.msgs.push({id:uid(),from:me,txt:x,ts:Date.now()});S.msgs=S.msgs.slice(-200);done()},dmsg:d=>{S.msgs=S.msgs.filter(m=>m.id!==d.id);done()},
+ addrc:()=>fRec(),edrc:d=>fRec(S.recipes.find(x=>x.id===d.id)),rcl:d=>{const r=S.recipes.find(x=>x.id===d.id),k=wkKey(new Date());if(wasAdded(r,k)&&!confirm(CONF))return;mark(r,k);toast(addRecipe(r)+' ingrediënten verwerkt');save()},
+ addct:()=>fCt(),edct:d=>fCt(S.contacts.find(x=>x.id===d.id)),
+ addm:()=>{S.members.push({id:uid(),name:'Nieuw lid',color:MC[S.members.length%MC.length],emoji:'🙂'});done()},delm:d=>{if(S.members.length<2)return toast('Minstens één lid nodig');S.members=S.members.filter(m=>m.id!==d.id);done()},
+ onew:()=>{const n={id:uid(),name:'Nieuwe winkel',cats:Object.keys(CATS)};S.orders.push(n);S.active=n.id;done()},odup:()=>{const o=order(),n={id:uid(),name:o.name+' (kopie)',cats:[...o.cats]};S.orders.push(n);S.active=n.id;done()},
+ odel:()=>{if(S.orders.length<2)return toast('Minstens één route nodig');S.orders=S.orders.filter(x=>x!==order());S.active=S.orders[0].id;done()},
+ up:d=>{const o=order(),n=+d.id;[o.cats[n],o.cats[n-1]]=[o.cats[n-1],o.cats[n]];done()},dn:d=>{const o=order(),n=+d.id;[o.cats[n],o.cats[n+1]]=[o.cats[n+1],o.cats[n]];done()},
+ igadd:()=>{syncSh();SH.v.ings.push({name:'',qty:''});drawSh()},igdel:d=>{syncSh();SH.v.ings.splice(+d.id,1);drawSh()},
+ imp:()=>$('#csvf').click(),impdel:d=>{if(confirm('Alle geïmporteerde transacties van deze maand wissen?')){S.exp=S.exp.filter(x=>!(x.imp&&x.date.startsWith(d.id)));done()}},
+ tilereset:()=>{S.tiles=[];done()},
+ th:d=>{S.theme=d.id;theme();done()},
+ mic:()=>micStart(),cvw:d=>{cv=d.id;try{localStorage.setItem('cv',cv)}catch(e){}render()},cmn:d=>{const x=d.id==='0'?new Date():P(cd);if(d.id!=='0'){x.setDate(1);x.setMonth(x.getMonth()+ +d.id)}cd=ymd(x);render()},
+ gcon:async()=>{try{await gSync(true);toast(G.length+' afspraken geladen')}catch(e){toast(e==='cid'?'Vul eerst je Client-ID in':'Verbinden mislukt')}render()},
+ locshare:()=>{if(shareOn()){setShare(false);stopLoc();delete S.loc[me];ref?.set({loc:{[me]:null}}).catch(()=>{});toast('Delen gestopt')}else{setShare(true);startLoc()}render()},
+ locnow:()=>{navigator.geolocation.getCurrentPosition(p=>onPos(p,true),onErr,{enableHighAccuracy:true,timeout:20000,maximumAge:0});toast('Bezig…')},
+ locc:d=>{const v=S.loc[d.id];if(v&&map){map.setView([v.lat,v.lng],16);$('#map').scrollIntoView({behavior:'smooth',block:'center'})}}};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&A[t.dataset.a])A[t.dataset.a](t.dataset,t,e)});
+function addItem(){const i=$('#qa'),n=i.value.trim();if(!n)return;S.items.unshift({id:uid(),name:n,qty:'',cat:guess(n),done:false});save();render();$('#qa')?.focus()}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'){if(e.target.id==='qa')addItem();if(e.target.id==='mi')A.post()}});
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset.mf){const m=S.members.find(x=>x.id===t.dataset.id);if(m){m[t.dataset.mf]=t.value;save()}}});
+document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
+ if(t.id==='csvf'&&t.files[0]){readCsv(t.files[0]);t.value='';return}
+ if(d.set==='fam'){S.fam=t.value;save()}if(d.set==='budget'){S.budget=+t.value||0;save()}if(d.set==='oname'){order().name=t.value;save()}
+ if(d.lim){S.limits[d.lim]=+t.value||0;save()}
+ if(d.set==='gcid'){gcfg().cid=t.value.trim();save()}
+ if(d.gc||d.gm){const c=gcfg(),k=d.gc||d.gm,o=c.cals[k]||{on:false,m:''};if(d.gc)o.on=t.checked;else o.m=t.value;c.cals[k]=o;save();gSync(false).catch(()=>{})}if(d.mf==='color')render();
+ if(t.id==='mesel'){me=t.value;try{localStorage.setItem('me',me)}catch(x){}render()}
+ if(t.id==='osel'||t.id==='rt'){S.active=t.value;done()}});
+function remote(s){const ex=typeof s.exists==='function'?s.exists():s.exists;if(!ex)return;let d={...(typeof s.data==='function'?s.data():s.data)};mergeLoc(d.loc);delete d.loc;if(dirty||s.metadata?.hasPendingWrites)return;
+ const n={...S,...d};if(JSON.stringify(n)===JSON.stringify(S))return;S=n;norm();theme();if(!SH&&!/INPUT|TEXTAREA/.test(document.activeElement?.tagName||''))render();toast('🔄 Bijgewerkt')}
+async function init(){try{const l=JSON.parse(localStorage.getItem('bd')||'null');if(l)S={...S,...l}}catch(e){}
+ norm();theme();render();
+ try{ref=await getRef();if(ref){const s=await ref.get();const ex=typeof s.exists==='function'?s.exists():s.exists;
+  if(ex){const d=typeof s.data==='function'?s.data():s.data;S={...S,...d};norm();theme();render()}else save();if(ref.onSnapshot)ref.onSnapshot(remote,()=>{})}}catch(e){}
+ if(shareOn())startLoc();
+ if(gcfg().cid&&gOn()){gSync(false).catch(()=>{});document.addEventListener('click',()=>{if(!gtok)gSync(false).catch(()=>{})},{once:true,capture:true})}}
+init();
+</script><script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import {getFirestore,doc,getDoc,setDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+const app=initializeApp({apiKey:"AIzaSyBPL1NZjSILOei1lvzegx5tg4AjxosH6IM",authDomain:"shop-f72c9.firebaseapp.com",projectId:"shop-f72c9",storageBucket:"shop-f72c9.firebasestorage.app",messagingSenderId:"279428641146",appId:"1:279428641146:web:fd27bb59a67b71cbdea6c3"});
+const d=doc(getFirestore(app),"app","main");
+window._fbres({get:()=>getDoc(d),set:x=>setDoc(d,x,{merge:true}),onSnapshot:(cb,er)=>onSnapshot(d,cb,er)});
+</script></body></html>
